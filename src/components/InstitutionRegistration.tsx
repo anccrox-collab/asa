@@ -77,7 +77,6 @@ export default function InstitutionRegistration() {
       if (submitError) throw submitError;
 
       setSubmitted(true);
-
       fetchExistingRequests();
 
       setTimeout(() => {
@@ -131,38 +130,40 @@ export default function InstitutionRegistration() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'approved':
-        return <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">Approved</span>;
+        return <span className="px-3 py-1 bg-green-500/10 text-green-400 border border-green-600/40 rounded-full text-xs font-semibold">Approved</span>;
       case 'rejected':
-        return <span className="px-3 py-1 bg-red-100 text-red-800 rounded-full text-xs font-semibold">Rejected</span>;
+        return <span className="px-3 py-1 bg-red-500/10 text-red-400 border border-red-600/40 rounded-full text-xs font-semibold">Rejected</span>;
       default:
-        return <span className="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-semibold">Pending</span>;
+        return <span className="px-3 py-1 bg-yellow-500/10 text-yellow-400 border border-yellow-600/40 rounded-full text-xs font-semibold">Pending</span>;
     }
   };
 
   return (
     <div className="space-y-8">
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+      <div className="bg-gradient-to-br from-[#111] to-black border border-[#1f1f1f] rounded-xl shadow-xl p-8 text-white">
         <div className="flex items-center space-x-3 mb-6">
-          <Building2 className="w-6 h-6 text-blue-600" />
-          <h2 className="text-2xl font-bold text-gray-900">Institution Authorization Request</h2>
+          <Building2 className="w-6 h-6 text-yellow-400" />
+          <h2 className="text-2xl font-bold">Institution Authorization Request</h2>
         </div>
 
         {submitted && (
-          <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-start space-x-3">
-            <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+          <div className="mb-6 p-4 bg-green-500/10 border border-green-600/40 rounded-lg flex items-start space-x-3">
+            <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
             <div>
-              <h3 className="font-semibold text-green-900">Request Submitted Successfully</h3>
-              <p className="text-sm text-green-700 mt-1">Your authorization request has been submitted. Our team will review it and get back to you soon.</p>
+              <h3 className="font-semibold text-green-400">Request Submitted Successfully</h3>
+              <p className="text-sm text-gray-400 mt-1">
+                Your authorization request has been submitted. Our team will review it and get back to you soon.
+              </p>
             </div>
           </div>
         )}
 
         {error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start space-x-3">
-            <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+          <div className="mb-6 p-4 bg-red-500/10 border border-red-600/40 rounded-lg flex items-start space-x-3">
+            <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
             <div>
-              <h3 className="font-semibold text-red-900">Error</h3>
-              <p className="text-sm text-red-700 mt-1">{error}</p>
+              <h3 className="font-semibold text-red-400">Error</h3>
+              <p className="text-sm text-gray-400 mt-1">{error}</p>
             </div>
           </div>
         )}
@@ -170,7 +171,7 @@ export default function InstitutionRegistration() {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Institution Name</label>
+              <label className="block text-sm font-semibold text-gray-400 mb-2">Institution Name</label>
               <input
                 type="text"
                 name="institutionName"
@@ -178,12 +179,12 @@ export default function InstitutionRegistration() {
                 onChange={handleInputChange}
                 placeholder="e.g., Harvard University"
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 bg-black border border-[#1f1f1f] rounded-lg text-white focus:border-yellow-400 focus:ring-0"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Ethereum Wallet Address</label>
+              <label className="block text-sm font-semibold text-gray-400 mb-2">Ethereum Wallet Address</label>
               <div className="flex gap-2">
                 <input
                   type="text"
@@ -193,23 +194,25 @@ export default function InstitutionRegistration() {
                   placeholder="0x..."
                   required
                   pattern="0x[a-fA-F0-9]{40}"
-                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-sm"
+                  className="flex-1 px-4 py-2 bg-black border border-[#1f1f1f] rounded-lg text-white focus:border-yellow-400 focus:ring-0 font-mono text-sm"
                 />
                 <button
                   type="button"
                   onClick={handleConnectWallet}
                   disabled={connectingWallet}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center whitespace-nowrap"
+                  className="px-4 py-2 bg-yellow-400 text-black rounded-lg hover:bg-yellow-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center whitespace-nowrap"
                 >
                   <Wallet className="w-4 h-4 mr-2" />
                   {connectingWallet ? 'Connecting...' : 'Connect'}
                 </button>
               </div>
-              <p className="text-xs text-gray-500 mt-1">Must be a valid Ethereum address (0x...) or click Connect to use your MetaMask wallet</p>
+              <p className="text-xs text-gray-500 mt-1">
+                Must be a valid Ethereum address (0x...) or click Connect to use your MetaMask wallet
+              </p>
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
+              <label className="block text-sm font-semibold text-gray-400 mb-2">Email Address</label>
               <input
                 type="email"
                 name="email"
@@ -217,12 +220,12 @@ export default function InstitutionRegistration() {
                 onChange={handleInputChange}
                 placeholder="contact@institution.com"
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 bg-black border border-[#1f1f1f] rounded-lg text-white focus:border-yellow-400 focus:ring-0"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Phone Number</label>
+              <label className="block text-sm font-semibold text-gray-400 mb-2">Phone Number</label>
               <input
                 type="tel"
                 name="phone"
@@ -230,13 +233,13 @@ export default function InstitutionRegistration() {
                 onChange={handleInputChange}
                 placeholder="+1 (555) 000-0000"
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 bg-black border border-[#1f1f1f] rounded-lg text-white focus:border-yellow-400 focus:ring-0"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Institution Description</label>
+            <label className="block text-sm font-semibold text-gray-400 mb-2">Institution Description</label>
             <textarea
               name="description"
               value={formData.description}
@@ -244,7 +247,7 @@ export default function InstitutionRegistration() {
               placeholder="Tell us about your institution..."
               required
               rows={4}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+              className="w-full px-4 py-2 bg-black border border-[#1f1f1f] rounded-lg text-white focus:border-yellow-400 focus:ring-0 resize-none"
             />
           </div>
 
@@ -252,7 +255,7 @@ export default function InstitutionRegistration() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-yellow-400 text-black py-3 rounded-lg font-semibold hover:bg-yellow-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Submitting...' : 'Submit Authorization Request'}
             </button>
@@ -261,7 +264,7 @@ export default function InstitutionRegistration() {
               <button
                 type="button"
                 onClick={fetchExistingRequests}
-                className="w-full bg-gray-100 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors text-sm"
+                className="w-full bg-[#111] border border-[#1f1f1f] text-gray-400 py-2 rounded-lg font-medium hover:border-yellow-400 transition-colors text-sm"
               >
                 Check My Previous Requests
               </button>
@@ -271,31 +274,33 @@ export default function InstitutionRegistration() {
       </div>
 
       {existingRequests.length > 0 && (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
-          <h3 className="text-xl font-bold text-gray-900 mb-6">Your Authorization Requests</h3>
+        <div className="bg-gradient-to-br from-[#111] to-black border border-[#1f1f1f] rounded-xl shadow-xl p-8 text-white">
+          <h3 className="text-xl font-bold mb-6">Your Authorization Requests</h3>
           <div className="space-y-4">
             {existingRequests.map((request) => (
-              <div key={request.id} className="border border-gray-200 rounded-lg p-6">
+              <div key={request.id} className="border border-[#1f1f1f] rounded-lg p-6">
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <h4 className="font-semibold text-gray-900">{request.institution_name}</h4>
-                    <p className="text-sm text-gray-600">{request.email}</p>
+                    <h4 className="font-semibold">{request.institution_name}</h4>
+                    <p className="text-sm text-gray-400">{request.email}</p>
                   </div>
                   {getStatusBadge(request.status)}
                 </div>
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <p className="text-xs text-gray-600 mb-2">Wallet Address:</p>
+                <div className="bg-black border border-[#1f1f1f] rounded-lg p-4">
+                  <p className="text-xs text-gray-500 mb-2">Wallet Address:</p>
                   <div className="flex items-center space-x-2">
-                    <code className="text-sm font-mono text-gray-800 break-all flex-1">{request.wallet_address}</code>
+                    <code className="text-sm font-mono text-gray-300 break-all flex-1">
+                      {request.wallet_address}
+                    </code>
                     <button
                       onClick={() => copyToClipboard(request.wallet_address, request.id)}
-                      className="p-2 hover:bg-gray-200 rounded-lg transition-colors flex-shrink-0"
+                      className="p-2 hover:bg-[#111] rounded-lg transition-colors flex-shrink-0"
                     >
-                      <Copy className="w-4 h-4 text-gray-600" />
+                      <Copy className="w-4 h-4 text-yellow-400" />
                     </button>
                   </div>
                   {copiedId === request.id && (
-                    <p className="text-xs text-green-600 mt-2">Copied to clipboard!</p>
+                    <p className="text-xs text-green-400 mt-2">Copied to clipboard!</p>
                   )}
                 </div>
                 <p className="text-xs text-gray-500 mt-3">
