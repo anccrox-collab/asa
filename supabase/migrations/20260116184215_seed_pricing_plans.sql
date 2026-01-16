@@ -57,4 +57,4 @@ INSERT INTO pricing_plans (plan_type, name, price, currency, features, active) V
     "custom_integrations": true
   }'::jsonb,
   true
-);
+); 
